@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    font-size: '16px';
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(245, 245, 245);
+}
+.my-contaienr {
+    min-height: 600px;
+}
+
+.footer {
+    min-height: 60px;
+    align-items: center;
+    background-color: #343a40;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
