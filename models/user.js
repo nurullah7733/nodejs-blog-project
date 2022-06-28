@@ -25,6 +25,10 @@ const userSchema = Schema(
             type: Schema.ObjectId,
             ref: 'ProfileModel',
         },
+        profilePics: {
+            type: String,
+            default: '/uploads/default.png',
+        },
     },
     { versionKey: false, timestamps: true }
 );

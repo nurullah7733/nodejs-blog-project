@@ -1,0 +1,137 @@
+<%- include('../../partials/header.ejs') %>
+
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div>
+
+                        <form action="/post/edit/<%=post._id %>" method="POST" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <label for="title">Enter Your Post Title</label>
+                                <input type="text" name="title" id="title" value="<%= post.title %> "
+                                    class="form-control <%= errors.title ? 'is-invalid' : '' %> ">
+                                <div class="invalid-feedback">
+                                    <%= errors.title ? errors.title : '' %>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tiny">Enter Your Post Body</label>
+                                <textarea name="body" id="tiny"
+                                    class="form-control <%= errors.body ? 'is-invalid' : '' %> "><%= post.body %></textarea>
+                                <div class="invalid-feedback">
+                                    <%= errors.body ? errors.body : '' %>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tags">Enter Your Post Tags</label>
+                                <input type="text" name="tags" id="tags"
+                                    value="<%= post.tags.length > 0 ? post.tags.join(', ') : '' %> "
+                                    placeholder="tag1, tag2, tag3"
+                                    class="form-control <%= errors.tags ? 'is-invalid' : " "%> ">
+                                <div class="invalid-feedback">
+                                    <%= errors.tags ? errors.tags : '' %>
+                                </div>
+                            </div>
+
+                            <!-- thumbnail Image -->
+                            <% if (post.thumbnail) { %>
+                                <div style="width: 800px; margin-bottom: 20px;">
+                                    <label for="">Post Thumbnail </label>
+                                    <img src="<%= post.thumbnail %> " alt="Thumbnail Images" class="img-fluid">
+                                </div>
+                                <% } %>
+                                    <!-- End thumbnail Image -->
+
+
+                                    <div class="custom-file">
+                                        <input type="file" name="post-thumbnail" class="custom-file-input"
+                                            id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary mt-3" value="Update Post">
+                                    <button class="btn btn-danger" style="margin-top: 15px;"
+                                        href="/delete/<%= post._id %> ">Delete Post </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+        <!-- for tiny form -->
+
+
+
+        <script src="https://cdn.tiny.cloud/1/8mx4psh0q3mxfeq286q7zux5pw37ltqokzwt4h8dsd7yewvi/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+
+
+
+        <!-- End for tiny form -->
+
+
+        <!--  for bootstrap input file name show -->
+        <script>
+            $('#customFile').on('change', function (e) {
+                let fileName = e.target.files[0].name;
+                $(this).next('.custom-file-label').html(fileName)
+            })
+        </script>
+
+
+
+        <!-- End  for bootstrap input file name show -->
+
+        <script>
+            window.onload = function () {
+                tinymce.init({
+                    selector: '#tiny',
+                    plugins: [
+                        'a11ychecker advcode advlist lists link checklist autolink autosave code',
+                        'preview',
+                        'searchreplace',
+                        'wordcount',
+                        'media table emoticons image imagetools',
+                    ],
+                    toolbar:
+                        'bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | forecolor backcolor emoticons | code preview',
+                    height: 350,
+                    relative_urls: false,
+                    automatic_uploads: true,
+                    images_upload_url: '/uploads/postimage',
+                    images_upload_handler: function (blobInfo, success, failure) {
+                        const headers = new Headers();
+                        headers.append('Accept', 'Application/JSON');
+
+                        const formData = new FormData();
+                        formData.append('post-image', blobInfo.blob(), blobInfo.filename());
+
+                        const req = new Request('/uploads/postimage', {
+                            method: 'POST',
+                            headers,
+                            mode: 'cors',
+                            body: formData,
+                        });
+
+                        fetch(req)
+                            .then((res) => res.json())
+                            .then((data) => success(data.imgUrl))
+                            .catch(() => failure('HTTP Error'));
+                    },
+                });
+            };
+
+        </script>
+        </body>
+
+
+        </html>

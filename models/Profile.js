@@ -32,7 +32,7 @@ const profileSchema = Schema({
         website: String,
         facebook: String,
         twitter: String,
-        github: String,
+        linkedin: String,
     },
 
     posts: [
