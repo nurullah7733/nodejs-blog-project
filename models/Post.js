@@ -17,7 +17,7 @@ const postSchema = Schema(
         },
         author: {
             type: Schema.ObjectId,
-            ref: 'UserModel',
+            ref: 'userModel',
             required: true,
         },
         tags: {
@@ -29,23 +29,38 @@ const postSchema = Schema(
         likes: [
             {
                 type: Schema.ObjectId,
-                ref: 'UserModel',
+                ref: '',
             },
         ],
         dislikes: [
             {
                 type: Schema.ObjectId,
-                ref: 'UserModel',
+                ref: 'userModel',
             },
         ],
         comments: [
             {
                 type: Schema.ObjectId,
-                ref: 'CommentsModel',
+                ref: 'commentsModel',
             },
         ],
     },
     { timestamps: true }
+);
+
+postSchema.index(
+    {
+        title: 'text',
+        body: 'text',
+        tags: 'text',
+    },
+    {
+        weights: {
+            title: 5,
+            tags: 5,
+            body: 2,
+        },
+    }
 );
 
 const PostModel = model('posts', postSchema);

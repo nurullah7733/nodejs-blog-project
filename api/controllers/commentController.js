@@ -1,5 +1,6 @@
 const CommentsModel = require('../../models/Comment');
 const PostModel = require('../../models/Post');
+const UserModel = require('../../models/User');
 
 exports.commentPostController = async (req, res, next) => {
     const { postId } = req.params;
@@ -28,6 +29,7 @@ exports.commentPostController = async (req, res, next) => {
             createComments._id
         ).populate({
             path: 'user',
+            model: UserModel,
             select: 'profilePics username',
         });
         res.status(201).json(commentJson);
@@ -46,15 +48,15 @@ exports.commentReplaysController = async (req, res, next) => {
         return res.status(403).json({ error: 'Your are not Authenticated' });
     }
 
-    const replay = { body, user: req.user };
+    const reply = { body, user: req.user };
 
     try {
         await CommentsModel.findOneAndUpdate(
             { _id: commentId },
-            { $push: { replies: replay } }
+            { $push: { replies: reply } }
         );
         res.status(200).json({
-            ...replay,
+            ...reply,
             profilePics: req.user.profilePics,
         });
     } catch (error) {

@@ -8,7 +8,7 @@ exports.bookmarksController = async (req, res) => {
         return res.status(400).json('Your are not Authenticated');
     }
 
-    let bookmarked = null;
+    let bookmark = null;
 
     try {
         const profile = await ProfileModel.findOne({ user: req.user._id });
@@ -18,14 +18,17 @@ exports.bookmarksController = async (req, res) => {
                 { user: req.user._id },
                 { $pull: { bookmarks: postId } }
             );
-            bookmarked = false;
+            bookmark = false;
         } else {
             await ProfileModel.findOneAndUpdate(
                 { user: req.user._id },
-                { $push: { bookmarked: postId } }
+                { $push: { bookmarks: postId } }
             );
-            bookmarked = true;
+            bookmark = true;
         }
+        res.status(200).json({
+            bookmark,
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json('server Error');

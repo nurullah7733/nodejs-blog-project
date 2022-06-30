@@ -23,7 +23,7 @@ const userSchema = Schema(
 
         profile: {
             type: Schema.ObjectId,
-            ref: 'ProfileModel',
+            ref: 'profileModel',
         },
         profilePics: {
             type: String,

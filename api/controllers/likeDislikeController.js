@@ -2,11 +2,11 @@ const PostModel = require('../../models/Post');
 
 exports.likeGetController = async (req, res, next) => {
     const { postId } = req.params;
-    if (!req.user) {
-        return res.status(400).json('Your are not Authenticated');
-    }
-
     let liked = null;
+
+    if (!req.user) {
+        return res.status(403).json('Your are not Authenticated');
+    }
 
     try {
         const post = await PostModel.findById(postId);

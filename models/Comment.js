@@ -6,12 +6,12 @@ const commentsSchema = Schema(
     {
         post: {
             type: Schema.Types.ObjectId,
-            ref: 'PostModel',
+            ref: 'postModel',
             required: true,
         },
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'UserModel',
+            ref: 'userModel',
             required: true,
         },
         body: {
@@ -27,7 +27,7 @@ const commentsSchema = Schema(
                 },
                 user: {
                     type: Schema.Types.ObjectId,
-                    ref: 'UserModel',
+                    ref: 'userModel',
                     required: true,
                 },
                 createAt: {
