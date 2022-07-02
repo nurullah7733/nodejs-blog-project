@@ -33,7 +33,9 @@
                                                 <small>
                                                     <%= moment(post.createdAt) %> |
                                                         Posted By - <strong>
-                                                            <%= post.author.username %>
+                                                            <a href="/author/<%= post.author.username %> ">
+                                                                <%= post.author.username %>
+                                                            </a>
                                                         </strong>|
                                                         <%= post.readTime %>
                                                 </small>
@@ -84,7 +86,8 @@
     </div>
 
     <%- include('../partials/footer.ejs') %>
-        <script src="/scripts/bookmarks.js"></script>
+        <!-- <script src="/scripts/bookmarks.js"></script> -->
+        <script src="/scripts/singlePage.js"></script>
         </body>
 
         </html>

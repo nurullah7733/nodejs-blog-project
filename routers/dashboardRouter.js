@@ -5,11 +5,14 @@ const {
     createProfilePostController,
     editProfileGetController,
     editProfilePostController,
+    bookmarksGetController,
+    commentGetController,
 } = require('../controllers/dashboardController');
 const { isAuthenticated } = require('../middleware/authMiddleware');
 const createProfileValidator = require('../validator/dashboard/createProfileValidator');
 
-router.get('/', isAuthenticated, dashboardController);
+router.get('/bookmarks', isAuthenticated, bookmarksGetController);
+router.get('/comments', isAuthenticated, commentGetController);
 
 router.get('/create-profile', isAuthenticated, createProfileGetController);
 router.post(
@@ -21,5 +24,7 @@ router.post(
 
 router.get('/edit-profile', isAuthenticated, editProfileGetController);
 router.post('/edit-profile', isAuthenticated, editProfilePostController);
+
+router.get('/', isAuthenticated, dashboardController);
 
 module.exports = router;

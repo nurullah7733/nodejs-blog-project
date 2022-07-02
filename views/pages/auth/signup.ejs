@@ -8,7 +8,7 @@
                     <form action="/auth/sign-up" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">User Name</label>
-                            <input type="text" name="username" value="<%= value.username  %> "
+                            <input type="text" name="username" value="<%=value.username %>"
                                 class="form-control <%= errors && errors.username ? 'is-invalid' : ''  %> "
                                 id="username" aria-describedby="emailHelp">
                             <div class="invalid-feedback">

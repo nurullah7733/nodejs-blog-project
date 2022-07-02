@@ -4,14 +4,31 @@ const Profile = require('../models/Profile');
 const { validationResult } = require('express-validator');
 const ErrorValidator = require('../utils/ErrorValidator');
 const userModel = require('../models/User');
+const PostModel = require('../models/Post');
+const CommentsModel = require('../models/Comment');
 
 exports.dashboardController = async (req, res, next) => {
     try {
-        let profile = await Profile.findOne({ user: req.user._id });
+        let profile = await Profile.findOne({ user: req.user._id })
+            .populate({
+                path: 'posts',
+                model: PostModel,
+                select: '-_id title thumbnail',
+            })
+            .populate({
+                path: 'bookmarks',
+                model: PostModel,
+                select: '-_id title thumbnail',
+            });
+
+        // res.json(profile);
+
         if (profile) {
             return res.render('pages/dashboard/dashboard', {
                 title: 'dashboard',
                 flashMessage: Flash.getMessage(req),
+                posts: profile.posts.reverse().slice(0, 3),
+                bookmarks: profile.bookmarks.reverse().slice(0, 3),
             });
         }
         res.redirect('/dashboard/create-profile');
@@ -67,7 +84,7 @@ exports.createProfilePostController = async (req, res, next) => {
 
         await userModel.findOneAndUpdate(
             { _id: req.user._id },
-            { $set: { profileId: Profile._id } }
+            { $set: { profile: Profiles._id } }
         );
         req.flash('success', 'Profile Create Success!');
         res.redirect('/dashboard');
@@ -136,5 +153,52 @@ exports.editProfilePostController = async (req, res, next) => {
     } catch (error) {
         console.log(error);
         next();
+    }
+};
+
+exports.bookmarksGetController = async (req, res, next) => {
+    const profile = await Profile.findOne(req.user._id).populate({
+        path: 'bookmarks',
+        model: PostModel,
+    });
+
+    console.log(profile.posts);
+
+    res.render('pages/dashboard/bookmarks', {
+        title: 'Bookmark Posts',
+        flashMessage: Flash.getMessage(req),
+        profile,
+    });
+};
+
+exports.commentGetController = async (req, res, next) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user._id });
+        const comments = await CommentsModel.find({
+            post: { $in: profile.posts },
+        })
+            .populate({
+                path: 'post',
+                model: PostModel,
+                select: 'title',
+            })
+            .populate({
+                path: 'user',
+                model: userModel,
+                select: 'username profilePics',
+            })
+            .populate({
+                path: 'replies.user',
+                model: userModel,
+                select: 'username profilePics',
+            });
+
+        res.render('pages/dashboard/comments', {
+            title: 'My Comments',
+            flashMessage: Flash.getMessage(req),
+            comments,
+        });
+    } catch (error) {
+        next(error);
     }
 };

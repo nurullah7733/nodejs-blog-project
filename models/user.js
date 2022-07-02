@@ -22,7 +22,7 @@ const userSchema = Schema(
         },
 
         profile: {
-            type: Schema.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'profileModel',
         },
         profilePics: {

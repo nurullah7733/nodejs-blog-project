@@ -7,8 +7,11 @@
     <a class="navbar-brand" href="/"> Blog</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link active" aria-current="page" href="/explorer">Explorer</a>
         <% if(isLoggedIn) { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/logout">Logout</a>
       </li>
@@ -22,8 +25,8 @@
 
         <% } %>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="form-inline my-2 my-lg-0" method="GET" action="/search">
+      <input class="form-control mr-sm-2" type="search" name="term" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>

@@ -4,6 +4,9 @@ const uploadRouter = require('./uploadRouter');
 const postRouter = require('./postRoute');
 const apiRoutes = require('../api/routes/apiRoutes');
 const explorerRoutes = require('./explorerRoute');
+const searchRoute = require('./searchRoute');
+const authorRoute = require('./authorRoute');
+
 const routes = [
     {
         path: '/auth',
@@ -26,13 +29,21 @@ const routes = [
         handler: explorerRoutes,
     },
     {
+        path: '/search',
+        handler: searchRoute,
+    },
+    {
+        path: '/author',
+        handler: authorRoute,
+    },
+    {
         path: '/api',
         handler: apiRoutes,
     },
     {
         path: '/',
         handler: (req, res) => {
-            res.json({ message: 'Server Started' });
+            res.redirect('/explorer');
         },
     },
 ];

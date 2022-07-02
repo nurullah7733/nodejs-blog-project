@@ -1,0 +1,55 @@
+<%- include('../partials/header.ejs') %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <%- include('../partials/sidebar.ejs') %>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card card-body my-3 p-3">
+                            <h4>
+                                List Of My Bookmarks
+                            </h4>
+                            <div class="row">
+                                <% if (profile.bookmarks.length===0) { %>
+                                    <h1>There i Not Bookmarks</h1>
+                                    <% }else { %>
+                                        <% for( let bookmark of profile.bookmarks.reverse() ) { %>
+                                            <div class="card col-sm-3 m-3">
+                                                <% if (bookmark.thumbnail) { %>
+                                                    <img src="<%= bookmark.thumbnail %>" class="img-fluid p-1" alt="">
+                                                    <% } %>
+
+                                                        <div class="card-body ">
+
+                                                            <p>
+                                                                <a href="/explorer/post/<%= bookmark._id %>  ">
+                                                                    <%= bookmark.title %>
+                                                                </a>
+                                                            </p>
+
+                                                        </div>
+
+                                            </div>
+                                            <% } %>
+
+                                                <% } %>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <%- include('../partials/footer.ejs') %>
+        <script src="/scripts/singlePage.js"></script>
+
+        </body>
+
+
+        </html>

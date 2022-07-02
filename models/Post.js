@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Mongoose } = require('mongoose');
 const UserModel = require('./User');
 const CommentsModel = require('./Comment');
 
@@ -16,7 +16,7 @@ const postSchema = Schema(
             maxLength: 5000,
         },
         author: {
-            type: Schema.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'userModel',
             required: true,
         },
@@ -28,19 +28,19 @@ const postSchema = Schema(
         readTime: String,
         likes: [
             {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: '',
             },
         ],
         dislikes: [
             {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'userModel',
             },
         ],
         comments: [
             {
-                type: Schema.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'commentsModel',
             },
         ],

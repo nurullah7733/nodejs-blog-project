@@ -1,12 +1,61 @@
 <%- include('../partials/header.ejs') %>
     <div class="container my-contaienr my-3">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <%- include('../partials/sidebar.ejs') %>
             </div>
-            <div class="col-md-10">
-                <h1 class="display-1 text-center">Welcome to Dashboard</h1>
+            <div class="col-md-8">
+                <div class="card card-body">
+                    <% if (posts.length===0) { %>
+                        <p>There is No Posts</p>
+                        <% }else { %>
+                            <h3>My Recent Posts</h3>
+                            <div style="display: flex; justify-content: center; gap: 30px">
+                                <% for( let post of posts ) { %>
 
+                                    <div class="card p-2" style="width: 18rem;">
+                                        <img class="card-img-top" src="<%= post.thumbnail %> "
+                                            style="width: 200px; max-height: 150px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= post.title %>
+                                            </h5>
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <% } %>
+                            </div>
+
+                            <% } %>
+
+                                <% if (bookmarks.length===0) { %>
+                                    <p class="mt-4">There is No Bookmarks</p>
+                                    <% }else { %>
+                                        <h3>My Recent Posts</h3>
+                                        <div style="display: flex; justify-content: center; gap: 30px">
+                                            <% for( let bookmark of bookmarks ) { %>
+
+                                                <div class="card p-2" style="width: 18rem;">
+                                                    <img class="card-img-top" src="<%= bookmark.thumbnail %> "
+                                                        style="width: 200px; max-height: 150px;">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <%= bookmark.title %>
+                                                        </h5>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                                <% } %>
+                                        </div>
+
+                                        <% } %>
+                </div>
             </div>
         </div>
     </div>

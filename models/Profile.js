@@ -4,7 +4,7 @@ const PostModel = require('./Post');
 
 const profileSchema = Schema({
     user: {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'userModel',
         required: true,
     },
@@ -37,14 +37,14 @@ const profileSchema = Schema({
 
     posts: [
         {
-            type: Schema.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'postModel',
         },
     ],
 
     bookmarks: [
         {
-            type: Schema.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'postModel',
         },
     ],

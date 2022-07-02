@@ -133,7 +133,7 @@ exports.editPostPostController = async (req, res, next) => {
         );
 
         req.flash('success', 'Post Update Success');
-        res.redirect('/');
+        res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
         next(error);

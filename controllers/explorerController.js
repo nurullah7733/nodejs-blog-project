@@ -3,6 +3,8 @@ const PostModel = require('../models/Post');
 const User = require('../models/User');
 const moment = require('moment');
 const ProfileModel = require('../models/Profile');
+const CommentsModel = require('../models/Comment');
+const { default: mongoose } = require('mongoose');
 
 function genDate(day) {
     let date = moment().subtract(day, 'days');
@@ -93,24 +95,22 @@ exports.signlePostGetController = async (req, res, next) => {
             .populate({
                 path: 'author',
                 model: User,
-                select: 'username profilePics',
+                select: '-_id, profilePics',
             })
             .populate({
                 path: 'comments',
-                model: User,
+                model: CommentsModel,
                 populate: {
                     path: 'user',
                     model: User,
-                    select: 'username profilePics',
                 },
             })
             .populate({
                 path: 'comments',
-                model: User,
+                model: CommentsModel,
                 populate: {
                     path: 'replies.user',
                     model: User,
-                    select: 'usename profilePics',
                 },
             });
 
@@ -132,6 +132,8 @@ exports.signlePostGetController = async (req, res, next) => {
             post,
             bookmarks,
         });
+
+        console.log(post);
     } catch (error) {
         console.log(error);
         next(error);
