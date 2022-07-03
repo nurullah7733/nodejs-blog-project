@@ -8,7 +8,6 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const { bindUserWithRequest } = require('./authMiddleware');
 const setLocals = require('./setLocals');
-const app = require('../app');
 
 const database_uri = process.env.DB;
 

@@ -46,4 +46,12 @@ app.use((error, req, res, next) => {
     }
 });
 
+app.listen(process.env.PORT, (err, success) => {
+    if (err) {
+        console.log('App Running faild');
+    } else {
+        console.log('App Running at ', process.env.PORT);
+    }
+});
+
 module.exports = app;
