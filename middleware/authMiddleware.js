@@ -1,4 +1,4 @@
-const userModel = require('../models/User');
+const UserModel = require('../models/User');
 
 exports.bindUserWithRequest = () => {
     return async (req, res, next) => {
@@ -7,7 +7,7 @@ exports.bindUserWithRequest = () => {
         }
 
         try {
-            let user = await userModel.findById(req.session.user._id);
+            let user = await UserModel.findById(req.session.user._id);
             req.user = user;
             next();
         } catch (error) {
