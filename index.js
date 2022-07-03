@@ -1,9 +1,9 @@
 const app = require('./app');
 
-app.listen(4000, (err, success) => {
+app.listen(process.env.PORT, (err, success) => {
     if (err) {
         console.log('App Running faild');
     } else {
-        console.log('App Running at ' + 4000);
+        console.log('App Running at ', process.env.PORT);
     }
 });
