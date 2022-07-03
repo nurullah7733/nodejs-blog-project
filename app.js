@@ -14,9 +14,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const database_uri = `mongodb://127.0.0.1:27017/${config.get(
-    'db-database-name'
-)}`;
+const database_uri = `mongodb+srv://nur:nur1234@cluster0.y610b.mongodb.net/blog-project/`;
 
 // db connect
 const option = { user: '', pass: '' };
