@@ -14,7 +14,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const database_uri = `mongodb+srv://nur:nur1234@cluster0.y610b.mongodb.net/blog-project`;
+const database_uri = process.env.DB;
 
 // db connect
 const option = { user: '', pass: '' };
