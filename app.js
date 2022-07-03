@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 // Import Middleware
-const Middlewares = require('./middleware/middlewares');
+const setMiddlewares = require('./middleware/middlewares');
 // Import Router
 const Routes = require('./routers/routes');
 
@@ -27,7 +27,7 @@ mongoose.connect(database_uri, option, (err, success) => {
 });
 
 // Using Middleware
-Middlewares(app);
+setMiddlewares(app);
 // * Using Routes
 Routes(app);
 // 404 not found
@@ -43,14 +43,6 @@ app.use((error, req, res, next) => {
     } else {
         console.log(error);
         res.render('./pages/error/500');
-    }
-});
-
-app.listen(process.env.PORT, (err, success) => {
-    if (err) {
-        console.log('App Running faild');
-    } else {
-        console.log('App Running at ', process.env.PORT);
     }
 });
 

@@ -22,7 +22,7 @@ const Middleware = [
     express.urlencoded({ extended: true }),
     express.json(),
     session({
-        secret: config.get('secret-key') || 'secret_key',
+        secret: config.get('secret-key') || 'secret-key',
         resave: false,
         saveUninitialized: false,
         store: store,
@@ -33,8 +33,14 @@ const Middleware = [
     setLocals(),
 ];
 
-module.exports = (app) => {
-    Middleware.forEach((m) => {
-        app.use(m);
-    });
+// module.exports = (app) => {
+//     Middleware.forEach((m) => {
+//         app.use(m);
+//     });
+// };
+
+const setMiddlewares = (app) => {
+    app.use(Middleware);
 };
+
+module.exports = setMiddlewares;
