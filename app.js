@@ -14,7 +14,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const database_uri = `mongodb+srv://nur:nur1234@cluster0.y610b.mongodb.net/blog-project/`;
+const database_uri = `mongodb+srv://nur:nur1234@cluster0.y610b.mongodb.net/blog-project`;
 
 // db connect
 const option = { user: '', pass: '' };
@@ -32,18 +32,18 @@ Middlewares(app);
 Routes(app);
 // 404 not found
 
-// app.use((req, res, next) => {
-//     const error = new Error('404 Not Found');
-//     error.status = 404;
-//     next(error);
-// });
-// app.use((error, req, res, next) => {
-//     if (error) {
-//         res.render('./pages/error/404');
-//     } else {
-//         console.log(error);
-//         res.render('./pages/error/500');
-//     }
-// });
+app.use((req, res, next) => {
+    const error = new Error('404 Not Found');
+    error.status = 404;
+    next(error);
+});
+app.use((error, req, res, next) => {
+    if (error) {
+        res.render('./pages/error/404');
+    } else {
+        console.log(error);
+        res.render('./pages/error/500');
+    }
+});
 
 module.exports = app;
