@@ -1,6 +1,7 @@
-const User = require('../models/User');
+// const User = require('../models/User');
 const Profile = require('../models/Profile');
 const fs = require('fs');
+const userModel = require('../models/User');
 
 exports.uploadProfilePics = async (req, res, next) => {
     if (req.file) {
@@ -17,7 +18,7 @@ exports.uploadProfilePics = async (req, res, next) => {
                     }
                 );
             }
-            await User.findOneAndUpdate(
+            await userModel.findOneAndUpdate(
                 { _id: req.user._id },
                 { $set: { profilePics } }
             );

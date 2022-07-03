@@ -1,6 +1,7 @@
 const CommentsModel = require('../../models/Comment');
 const PostModel = require('../../models/Post');
-const UserModel = require('../../models/User');
+const userModel = require('../../models/User');
+// const UserModel = require('../../models/User');
 
 exports.commentPostController = async (req, res, next) => {
     const { postId } = req.params;
@@ -29,7 +30,7 @@ exports.commentPostController = async (req, res, next) => {
             createComments._id
         ).populate({
             path: 'user',
-            model: UserModel,
+            model: userModel,
             select: 'profilePics username',
         });
         res.status(201).json(commentJson);
