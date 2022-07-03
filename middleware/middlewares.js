@@ -4,14 +4,13 @@ const morgan = require('morgan');
 const flash = require('connect-flash');
 const config = require('config');
 const MongoDBStore = require('connect-mongodb-session')(session);
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const { bindUserWithRequest } = require('./authMiddleware');
 const setLocals = require('./setLocals');
 const app = require('../app');
 
-const database_uri = `mongodb://127.0.0.1:27017/${config.get(
-    'db-database-name'
-)}`;
+const database_uri = process.env.DB;
 
 const store = new MongoDBStore({
     uri: database_uri,
