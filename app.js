@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
 
 // Import Middleware
 const setMiddlewares = require('./middleware/middlewares');

@@ -1,10 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const flash = require('connect-flash');
-const config = require('config');
 const MongoDBStore = require('connect-mongodb-session')(session);
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const { bindUserWithRequest } = require('./authMiddleware');
 const setLocals = require('./setLocals');
@@ -22,7 +21,7 @@ const Middleware = [
     express.urlencoded({ extended: true }),
     express.json(),
     session({
-        secret: config.get('secret-key') || 'secret-key',
+        secret: process.env.SECRET_KEY || 'secret-key',
         resave: false,
         saveUninitialized: false,
         store: store,
